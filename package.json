@@ -19,6 +19,6 @@
     "test": "echo TODO! Run ./wpt serve --inject-script=../dialog-toggle-events-polyfill/polyfill.js for now."
   },
   "devDependencies": {
-    "esbuild": "^0.20.0"
+    "esbuild": "^0.25.0"
   }
 }
