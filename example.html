@@ -19,6 +19,9 @@
     <dialog id="d1">
       <h1>I'm a dialog!</h1>
       <button type="button" id="b4">Close</button>
+      <form method=dialog>
+        <button type="submit" id="b5">Submit & Close</button>
+      </form>
     </dialog>
     <pre id="p1"></pre>
 
@@ -35,11 +38,11 @@
       b4.addEventListener('click', () => {
         d1.close();
       });
-      d1.addEventListener('beforetoggle', () => {
-        p1.textContent += '\nbeforetoggle fired!\n'
+      d1.addEventListener('beforetoggle', (e) => {
+        p1.textContent += `\nbeforetoggle fired; oldState: ${e.oldState}, newState: ${e.newState}, cancelable: ${e.cancelable}!\n`
       });
-      d1.addEventListener('toggle', () => {
-        p1.textContent += '\ntoggle fired!\n'
+      d1.addEventListener('toggle', (e) => {
+        p1.textContent += `\ntoggle fired; oldState: ${e.oldState}, newState: ${e.newState}, cancelable: ${e.cancelable}!\n`
       });
     </script>
   </body>

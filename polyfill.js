@@ -33,11 +33,43 @@
   const originalShowModal = HTMLDialogElement.prototype.showModal;
   const originalClose = HTMLDialogElement.prototype.close;
 
+  function dialogCloseEvents(dialog) {
+    const event = new ToggleEvent("beforetoggle", {
+      newState: "closed",
+      oldState: "open",
+      cancelable: false,
+    });
+    dialog.dispatchEvent(event);
+    if (!dialog.open) {
+      return;
+    }
+    queueDialogToggleEventTask(dialog);
+  }
+
+  document.addEventListener(
+    "submit",
+    (event) => {
+      const form = event.target;
+      if (form.method === "dialog") {
+        const dialog = form.closest("dialog");
+        if (dialog instanceof HTMLDialogElement) {
+          dialogCloseEvents(dialog);
+        }
+      }
+    },
+    true,
+  );
+
   Object.defineProperties(HTMLDialogElement.prototype, {
     show: {
       value() {
         // Event shouldn't fire, but browser might want to error/warn so return original call
-        if (this.open || this.matches(":popover-open, :modal") || !this.isConnected || !this.ownerDocument) {
+        if (
+          this.open ||
+          this.matches(":popover-open, :modal") ||
+          !this.isConnected ||
+          !this.ownerDocument
+        ) {
           return originalShow.apply(this, arguments);
         }
         const event = new ToggleEvent("beforetoggle", {
@@ -55,7 +87,12 @@
     showModal: {
       value() {
         // Event shouldn't fire, but browser might want to error/warn so return original call
-        if (this.open || this.matches(":popover-open, :modal") || !this.isConnected || !this.ownerDocument) {
+        if (
+          this.open ||
+          this.matches(":popover-open, :modal") ||
+          !this.isConnected ||
+          !this.ownerDocument
+        ) {
           return originalShowModal.apply(this, arguments);
         }
         const event = new ToggleEvent("beforetoggle", {
@@ -76,16 +113,7 @@
         if (!this.open && !this.matches(":popover-open, :modal")) {
           return originalClose.apply(this, arguments);
         }
-        const event = new ToggleEvent("beforetoggle", {
-          newState: "closed",
-          oldState: "open",
-          cancelable: true,
-        });
-        this.dispatchEvent(event);
-        if (!this.open) {
-          return;
-        }
-        queueDialogToggleEventTask(this);
+        dialogCloseEvents(this);
         return originalClose.apply(this, arguments);
       },
     },
