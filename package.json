@@ -1,0 +1,24 @@
+{
+  "name": "dialog-toggle-events-polyfill",
+  "version": "0.0.0-development",
+  "description": "This polyfills the `beforetoggle`/`toggle` events for <dialog> elements.",
+  "license": "MIT",
+  "author": "Keith Cirkel (https://keithcirkel.co.uk)",
+  "type": "module",
+  "main": "polyfill.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keithamus/dialog-toggle-events-polyfill.git"
+  },
+  "files": [
+    "polyfill.min.js"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run minify",
+    "minify": "esbuild --minify polyfill.js > polyfill.min.js",
+    "test": "echo TODO! Run ./wpt serve --inject-script=../dialog-toggle-events-polyfill/polyfill.js for now."
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0"
+  }
+}

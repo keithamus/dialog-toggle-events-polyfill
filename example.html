@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <title>Invoker Buttons Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script type="module" src="./polyfill.js"></script>
+  <body>
+    <h1>dialog toggle events polyfill</h1>
+    <p>
+      This is a demonstration page for the
+      <a href="https://github.com/keithamus/dialog-toggle-events-polyfill"
+        >github:keithamus/dialog-toggle-events-polyfill</a
+      >, which polyfills the <code>beforetoggle</code> and
+      <code>toggle</code> events for <code>&lt;dialog></code>.
+    </p>
+
+    <button type="button" id="b1">Click to open the dialog with show()</button>
+    <button type="button" id="b2">Click to open the dialog with showModal()</button>
+    <button type="button" id="b3">Click to close the dialog</button>
+    <dialog id="d1">
+      <h1>I'm a dialog!</h1>
+      <button type="button" id="b4">Close</button>
+    </dialog>
+    <pre id="p1"></pre>
+
+    <script>
+      b1.addEventListener('click', () => {
+        d1.show();
+      });
+      b2.addEventListener('click', () => {
+        d1.showModal();
+      });
+      b3.addEventListener('click', () => {
+        d1.close();
+      });
+      b4.addEventListener('click', () => {
+        d1.close();
+      });
+      d1.addEventListener('beforetoggle', () => {
+        p1.textContent += '\nbeforetoggle fired!\n'
+      });
+      d1.addEventListener('toggle', () => {
+        p1.textContent += '\ntoggle fired!\n'
+      });
+    </script>
+  </body>
+</html>
