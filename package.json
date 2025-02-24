@@ -12,14 +12,12 @@
   },
   "exports": {
     ".": {
-      "types": "./invoker.d.ts",
       "import": "./index.js",
-      "browser": "./invoker.min.js",
-      "require": "./invoker.min.js"
+      "browser": "./polyfill.min.js",
+      "require": "./polyfill.min.js"
     },
     "./fn": {
-      "types": "./index-fn.d.ts",
-      "import": "./invoker.js"
+      "import": "./polyfill.js"
     }
   },
   "files": [
