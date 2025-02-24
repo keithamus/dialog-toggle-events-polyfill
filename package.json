@@ -10,12 +10,24 @@
     "type": "git",
     "url": "git+https://github.com/keithamus/dialog-toggle-events-polyfill.git"
   },
+  "exports": {
+    ".": {
+      "types": "./invoker.d.ts",
+      "import": "./index.js",
+      "browser": "./invoker.min.js",
+      "require": "./invoker.min.js"
+    },
+    "./fn": {
+      "types": "./index-fn.d.ts",
+      "import": "./invoker.js"
+    }
+  },
   "files": [
-    "polyfill.min.js"
+    "*.js"
   ],
   "scripts": {
     "prepublishOnly": "npm run minify",
-    "minify": "esbuild --minify polyfill.js > polyfill.min.js",
+    "minify": "esbuild --bundle --minify index.js > index.min.js",
     "test": "echo TODO! Run ./wpt serve --inject-script=../dialog-toggle-events-polyfill/polyfill.js for now."
   },
   "devDependencies": {

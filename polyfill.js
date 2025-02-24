@@ -1,8 +1,7 @@
-(() => {
-  if (typeof HTMLDialogElement === "undefined") {
-    return;
+export function isSupported() {
+  if (typeof HTMLDialogElement !== "undefined") {
+    return false;
   }
-
   let supported = false;
   const dialog = document.createElement("dialog");
   dialog.addEventListener("beforetoggle", (e) => {
@@ -10,8 +9,24 @@
     e.preventDefault();
   });
   dialog.show();
-  if (supported) return;
+  return supported;
+}
 
+export function isPolyfilled() {
+  if (typeof HTMLDialogElement !== "undefined") {
+    return false;
+  }
+  let polyfilled = false;
+  const dialog = document.createElement("dialog");
+  dialog.addEventListener("beforetoggle", (e) => {
+    if (!e.isTrusted) polyfilled = true;
+    e.preventDefault();
+  });
+  dialog.show();
+  return polyfilled;
+}
+
+export function apply() {
   const toggleEventDispatcher = new WeakMap();
   function queueDialogToggleEventTask(dialog) {
     const newState = dialog.open ? "closed" : "open";
@@ -118,4 +133,4 @@
       },
     },
   });
-})();
+}
