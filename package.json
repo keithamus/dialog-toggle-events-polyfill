@@ -5,22 +5,32 @@
   "license": "MIT",
   "author": "Keith Cirkel (https://keithcirkel.co.uk)",
   "type": "module",
-  "main": "polyfill.js",
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/keithamus/dialog-toggle-events-polyfill.git"
   },
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.js",
-      "browser": "./polyfill.min.js",
-      "require": "./polyfill.min.js"
+      "browser": "./polyfill.min.js"
     },
     "./fn": {
-      "import": "./polyfill.js"
+      "types": "./polyfill.d.ts",
+      "import": "./polyfill.js",
+      "browser": "./polyfill.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "fn": [
+        "./polyfill.d.ts"
+      ]
     }
   },
   "files": [
+    "*.d.ts",
     "*.js"
   ],
   "scripts": {
