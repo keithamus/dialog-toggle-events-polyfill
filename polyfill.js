@@ -1,5 +1,5 @@
 export function isSupported() {
-  if (typeof HTMLDialogElement !== "undefined") {
+  if (typeof HTMLDialogElement !== "function") {
     return false;
   }
   let supported = false;
