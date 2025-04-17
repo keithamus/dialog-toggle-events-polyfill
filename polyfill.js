@@ -82,7 +82,6 @@ export function apply() {
         if (
           this.open ||
           this.matches(":popover-open, :modal") ||
-          !this.isConnected ||
           !this.ownerDocument
         ) {
           return originalShow.apply(this, arguments);
